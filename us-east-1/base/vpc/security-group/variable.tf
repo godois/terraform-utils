@@ -1,0 +1,1 @@
+variable "example-sg" { default = "sg-XXXXXX" }

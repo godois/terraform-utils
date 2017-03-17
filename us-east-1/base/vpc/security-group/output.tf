@@ -1,0 +1,1 @@
+output "example-sg" { value = "${var.example-sg}" }

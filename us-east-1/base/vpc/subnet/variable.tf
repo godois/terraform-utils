@@ -1,0 +1,1 @@
+variable "example-subnet" { default = "subnet-XXXXXXX" }
