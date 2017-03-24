@@ -3,7 +3,9 @@ module "global-vars" {
 }
 
 provider "aws" {
-  region = "${module.global-vars.default-region}"
+    region = "${module.global-vars.default-region}"
+    access_key = "ACCESS_KEY_HERE"
+    secret_key = "SECRET_KEY_HERE"
 }
 
 data "terraform_remote_state" "subnet" {
@@ -20,15 +22,6 @@ data "terraform_remote_state" "security-group" {
     config {
         bucket = "${module.global-vars.terraform-state-bucket}"
         key = "${module.global-vars.terraform-state-bucket-base-path}/vpc/security-group/terraform.tfstate"
-        region = "${module.global-vars.default-region}"
-    }
-}
-
-data "terraform_remote_state" "hosted-zone" {
-    backend = "s3"
-    config {
-        bucket = "${module.global-vars.terraform-state-bucket}"
-        key = "${module.global-vars.terraform-state-bucket-base-path}/route53/hosted-zone/terraform.tfstate"
         region = "${module.global-vars.default-region}"
     }
 }
