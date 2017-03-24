@@ -1,21 +1,13 @@
-data "template_file" "cloud_config_jenkins_1a" {
-    template = "${file("./jenkins-cloud-config.tpl")}"
-    vars {
-        environment = "jenkins"
-        instance_az = "1a"
-    }
-}
 
-resource "aws_instance" "jenkins_instance_1a" {
-    ami = "${module.global-vars.coreos-stable-ami}"
-    key_name = "${module.global-vars.key-name-jenkins}"
+resource "aws_instance" "ubuntu-example" {
+    ami = "${module.global-vars.ubuntu-stable-ami}"
+    key_name = "${module.global-vars.instance-key-name}"
     instance_type = "t2.large"
     count="1"
     tags {
         Name = "skapee-jenkins"
     }
     subnet_id = "${data.terraform_remote_state.subnet.skapee-public-1a}"
-    user_data = "${data.template_file.cloud_config_jenkins_1a.rendered}"
     root_block_device {
         volume_type = "gp2"
         volume_size = 8
